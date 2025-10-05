@@ -1,49 +1,68 @@
-import java.util.Arrays;
+
+import item.*;
+import jogo.*;
+import pedido.*;
+import suporte.*;
+import usuario.*;
 
 public class Main {
+
     public static void main(String[] args) {
-        // Cria catálogo e jogos
-        Catalogo catalogo = new Catalogo();
-        Jogo jogo1 = new Jogo(1, "Space Adventure", 79.90, "Aventura", "4GB RAM");
-        Jogo jogo2 = new Jogo(2, "Racing Pro", 49.90, "Corrida", "8GB RAM");
-        catalogo.adicionarJogo(jogo1);
-        catalogo.adicionarJogo(jogo2);
+        // Repositorios
+        JogoRepository jogoRepo = new JogoRepository();
+        ItemRepository itemRepo = new ItemRepository();
+        PedidoRepository pedidoRepo = new PedidoRepository();
+        SuporteRepository suporteRepo = new SuporteRepository();
+        UsuarioRepository usuarioRepo = new UsuarioRepository();
 
-        // Usuário não cadastrado cria conta
-        UsuarioNaoCadastrado anon = new UsuarioNaoCadastrado();
-        UsuarioCadastrado user = anon.criarConta(100, "Carlos", "carlos@example.com", "senha123");
+        // Services
+        JogoService jogoService = new JogoService(jogoRepo);
+        ItemService itemService = new ItemService(itemRepo);
+        PedidoService pedidoService = new PedidoService(pedidoRepo);
+        SuporteService suporteService = new SuporteService(suporteRepo);
+        UsuarioService usuarioService = new UsuarioService(usuarioRepo);
 
-        // Usuário navega catálogo e adiciona ao carrinho
-        catalogo.listarJogos();
-        Carrinho carrinho = new Carrinho();
-        carrinho.adicionarItem(jogo1);
-        carrinho.calcularTotal();
+        // Controllers
+        JogoController jogoCtrl = new JogoController(jogoService);
+        ItemController itemCtrl = new ItemController(itemService);
+        PedidoController pedidoCtrl = new PedidoController(pedidoService);
+        SuporteController suporteCtrl = new SuporteController(suporteService);
+        UsuarioController usuarioCtrl = new UsuarioController(usuarioService);
 
-        // Criar pedido e processar pagamento
-        Pedido pedido = user.criarPedido(carrinho);
-        Pagamento pagamento = new Pagamento(500, carrinho.calcularTotal(), "Cartão");
-        SistemaPagamentoExterno sistemaPagamento = new SistemaPagamentoExterno();
-        boolean sucesso = pagamento.processar(sistemaPagamento);
-        if (sucesso) {
-            pedido.confirmar(pagamento);
-            pagamento.gerarRecibo();
-            // adicionar jogo à biblioteca do usuário
-            user.getBiblioteca().adicionarJogo(jogo1);
-        }
+        // Cenário de demonstração (protótipo)
+        // 1) criar usuário (UsuarioCadastrado)
+        UsuarioCadastrado usuario = usuarioCtrl.criarConta("Alice", "alice@example.com", "senha123");
 
-        // Usuário abre ticket de suporte e solicita reembolso
-        TicketSuporte ticket = new TicketSuporte(user, "Problema com instalação do jogo");
-        user.abrirTicket(ticket);
-        ticket.abrir();
+        // 2) criar jogos e itens
+        Jogo j1 = jogoCtrl.criarJogo("Space Adventure", 49.90, "Aventura", "4GB RAM");
+        Jogo j2 = jogoCtrl.criarJogo("Racing Pro", 29.90, "Corrida", "8GB RAM");
 
-        // Solicitação de reembolso: include -> processar reembolso pela equipe
-        EquipeSuporte equipe = new EquipeSuporte(Arrays.asList("Ana", "Bruno"));
-        equipe.processarReembolso(pedido); // processa e cancela o pedido
+        // 3) adicionar ao carrinho e criar pedido
+        Pedido pedido = pedidoCtrl.criarPedido();
+        pedidoCtrl.adicionarItem(pedido, j1);
+        pedidoCtrl.adicionarItem(pedido, j2);
 
-        // Equipe responde ticket
-        equipe.responderTicket(ticket);
+        // 4) calcular total e processar pagamento
+        double total = pedidoService.calcularTotal(pedido);
+        System.out.println("Total do pedido: " + total);
+        Pedido.Pagamento pagamento = new Pedido.Pagamento(1, total, "CartaoCredito");
+        pedidoCtrl.finalizarPagamento(pedido, pagamento);
 
-        // Gerenciar biblioteca - includes e extends demonstrados por métodos
-        user.gerenciarBiblioteca();
+        // 5) adicionar jogos à biblioteca do usuário (simula pós-compra)
+        usuario.gerenciarBibliotecaAdd(j1);
+        usuario.gerenciarBibliotecaAdd(j2);
+
+        // 6) iniciar jogo (extend)
+        jogoCtrl.iniciar(j1.getId());
+
+        // 7) abrir ticket e solicitar reembolso (include -> equipe suporte processa)
+        Suporte ticket = suporteCtrl.abrirTicket("Problema ao instalar Space Adventure");
+        suporteCtrl.solicitarReembolso(ticket, 49.90);
+
+        // 8) criar item virtual e comprar
+        Item item = itemCtrl.criarItem("Skin Dourada", 5.0);
+        itemCtrl.comprarItem(usuario, item.getId());
+
+        System.out.println("Demo finalizada.");
     }
 }
