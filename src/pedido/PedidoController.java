@@ -3,7 +3,6 @@ package pedido;
 import jogo.Jogo;
 
 public class PedidoController {
-
     private final PedidoService service;
 
     public PedidoController(PedidoService service) {
@@ -18,8 +17,11 @@ public class PedidoController {
         service.adicionarItemAoCarrinho(pedido, jogo);
     }
 
-    public void finalizarPagamento(Pedido pedido, Pedido.Pagamento pagamento) {
-        boolean ok = service.finalizarPagamento(pedido, pagamento);
+    /**
+     * Novo método: usa Strategy + Factory de pagamento.
+     */
+    public void finalizarPagamento(Pedido pedido, String metodo, String referencia) {
+        boolean ok = service.finalizarPagamento(pedido, metodo, referencia);
         System.out.println("Resultado do pagamento (controller): " + ok);
     }
 }
