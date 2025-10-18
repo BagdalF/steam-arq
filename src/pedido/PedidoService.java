@@ -2,6 +2,8 @@ package pedido;
 
 import java.util.Optional;
 import jogo.Jogo;
+import pagamento.PagamentoFactory;
+import pagamento.PagamentoStrategy;
 
 /**
  * Camada de serviço responsável pela lógica de negócio relacionada a Pedido.
@@ -13,7 +15,6 @@ import jogo.Jogo;
  * - Manipula entidades Pedido, Carrinho e Pagamento.
  */
 public class PedidoService {
-
     private final PedidoRepository repository;
 
     public PedidoService(PedidoRepository repository) {
@@ -35,18 +36,29 @@ public class PedidoService {
         return pedido.getCarrinho().calcularTotal();
     }
 
-    public boolean finalizarPagamento(Pedido pedido, Pedido.Pagamento pagamento) {
-        pedido.setPagamento(pagamento);
-        boolean ok = pagamento.processar();
-        if (ok) {
-            boolean conf = pagamento.confirmar();
-            if (conf) {
-                pedido.confirmar();
-                repository.save(pedido);
-                System.out.println("Pagamento e confirmação OK para pedido " + pedido.getId());
-                return true;
-            }
+    /**
+     * Novo método com Strategy + Factory para processar pagamento.
+     */
+    public boolean finalizarPagamento(Pedido pedido, String metodo, String referencia) {
+        double total = pedido.getCarrinho().calcularTotal();
+        PagamentoStrategy pagamento = PagamentoFactory.create(metodo, referencia);
+
+        boolean processed = pagamento.process(total);
+        boolean confirmed = false;
+
+        if (processed) {
+            confirmed = pagamento.confirm();
         }
+
+        if (confirmed) {
+            pedido.confirmar();
+            repository.save(pedido);
+            System.out.println("Pagamento bem-sucedido via " + metodo + "!");
+            System.out.println(pagamento.getReceipt());
+            return true;
+        }
+
+        System.out.println("Falha ao processar pagamento.");
         return false;
     }
 
