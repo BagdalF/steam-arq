@@ -3,6 +3,14 @@ package item;
 import java.util.Optional;
 import usuario.UsuarioCadastrado;
 
+/**
+ * Camada Controller responsável por orquestrar requisições relacionadas a Item.
+ * Recebe chamadas externas (ex: interface gráfica ou API) e delega para o
+ * ItemService.
+ *
+ * Relação na arquitetura: - Depende de ItemService para executar operações de
+ * negócio. - Não acessa diretamente o repositório ou entidades.
+ */
 public class ItemController {
 
     private final ItemService service;

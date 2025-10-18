@@ -1,5 +1,15 @@
 package jogo;
 
+/**
+ * Entidade principal que representa um jogo na plataforma. Cada Jogo possui id,
+ * título, preço, gênero e requisitos. Métodos como iniciar() simulam operações
+ * de negócio relacionadas ao jogo.
+ *
+ * Relação na arquitetura: - Jogo é persistido pelo JogoRepository. -
+ * JogoService manipula instâncias de Jogo para lógica de negócio. -
+ * JogoController expõe operações relacionadas a Jogo para camadas superiores
+ * (ex: UI).
+ */
 public class Jogo {
 
     private int id;

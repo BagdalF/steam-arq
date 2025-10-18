@@ -3,6 +3,9 @@ package usuario;
 /**
  * Classe pública para Usuário Não Cadastrado. Permite criar conta (retorna um
  * UsuarioCadastrado).
+ *
+ * Relação na arquitetura: - Permite conversão de usuário não cadastrado para
+ * cadastrado. - Manipulado por UsuarioService e UsuarioController.
  */
 public class UsuarioNaoCadastrado extends Usuario {
 

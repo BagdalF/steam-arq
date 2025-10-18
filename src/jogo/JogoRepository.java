@@ -3,6 +3,13 @@ package jogo;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Camada de persistência responsável por armazenar e recuperar instâncias de
+ * Jogo. Utiliza um Map em memória como armazenamento (protótipo).
+ *
+ * Relação na arquitetura: - JogoService utiliza o JogoRepository para persistir
+ * e buscar jogos. - Não contém lógica de negócio, apenas operações CRUD.
+ */
 public class JogoRepository {
 
     private final Map<Integer, Jogo> storage = new HashMap<>();

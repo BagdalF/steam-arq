@@ -3,6 +3,14 @@ package suporte;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Camada de persistência responsável por armazenar e recuperar instâncias de
+ * Suporte. Utiliza um Map em memória como armazenamento (protótipo).
+ *
+ * Relação na arquitetura: - SuporteService utiliza o SuporteRepository para
+ * persistir e buscar tickets de suporte. - Não contém lógica de negócio, apenas
+ * operações CRUD.
+ */
 public class SuporteRepository {
 
     private final Map<Integer, Suporte> storage = new HashMap<>();

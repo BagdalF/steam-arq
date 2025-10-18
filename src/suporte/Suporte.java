@@ -1,5 +1,14 @@
 package suporte;
 
+/**
+ * Entidade principal que representa um ticket de suporte na plataforma. Cada
+ * Suporte possui id, descrição, status e responsável.
+ *
+ * Relação na arquitetura: - Suporte é criado e manipulado pelo SuporteService.
+ * - SuporteRepository é responsável por persistir instâncias de Suporte. -
+ * SuporteController expõe operações relacionadas a Suporte para camadas
+ * superiores (ex: UI).
+ */
 public class Suporte {
 
     private int id;

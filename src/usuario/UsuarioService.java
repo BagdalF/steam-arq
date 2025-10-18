@@ -1,5 +1,16 @@
+
 package usuario;
 
+/**
+ * Camada de serviço responsável pela lógica de negócio relacionada a Usuario.
+ * Interage com o UsuarioRepository para persistência e manipula entidades Usuario.
+ *
+ * Relação na arquitetura:
+ * - Recebe requisições do UsuarioController.
+ * - Utiliza UsuarioRepository para persistência.
+ * - Manipula entidades Usuario, UsuarioCadastrado e UsuarioNaoCadastrado.
+ 
+*/
 public class UsuarioService {
 
     private final UsuarioRepository repository;

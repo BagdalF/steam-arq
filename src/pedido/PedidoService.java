@@ -3,6 +3,15 @@ package pedido;
 import java.util.Optional;
 import jogo.Jogo;
 
+/**
+ * Camada de serviço responsável pela lógica de negócio relacionada a Pedido.
+ * Interage com o PedidoRepository para persistência e manipula entidades Pedido.
+ *
+ * Relação na arquitetura:
+ * - Recebe requisições do PedidoController.
+ * - Utiliza PedidoRepository para persistência.
+ * - Manipula entidades Pedido, Carrinho e Pagamento.
+ */
 public class PedidoService {
 
     private final PedidoRepository repository;

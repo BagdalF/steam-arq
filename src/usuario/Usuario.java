@@ -1,4 +1,15 @@
+
 package usuario;
+
+/**
+ * Entidade base que representa um usuário do sistema.
+ * Possui atributos comuns como id, nome, email e senha.
+ *
+ * Relação na arquitetura:
+ * - Usuário pode ser especializado em UsuarioCadastrado ou UsuarioNaoCadastrado.
+ * - Manipulado por UsuarioService para operações de autenticação e atualização de perfil.
+ * - Persistido por UsuarioRepository.
+ */
 
 public class Usuario {
 

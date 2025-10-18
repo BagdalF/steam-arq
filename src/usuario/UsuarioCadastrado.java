@@ -1,13 +1,15 @@
 package usuario;
 
-import jogo.Jogo;
-
 import java.util.ArrayList;
 import java.util.List;
+import jogo.Jogo;
 
 /**
  * Classe pública para Usuário Cadastrado. Extende Usuario e possui a composição
- * Biblioteca.
+ * Biblioteca, que armazena os jogos do usuário.
+ *
+ * Relação na arquitetura: - Manipulado por UsuarioService e UsuarioController.
+ * - Pode interagir com entidades Jogo (via Biblioteca).
  */
 public class UsuarioCadastrado extends Usuario {
 

@@ -1,5 +1,15 @@
 package item;
 
+/**
+ * Entidade principal que representa um item comercializável no sistema. Cada
+ * Item possui um id único, nome e preço. Os métodos comprar() e vender()
+ * simulam operações de negócio.
+ *
+ * Relação na arquitetura: - Item é persistido pelo ItemRepository. -
+ * ItemService manipula instâncias de Item para lógica de negócio. -
+ * ItemController expõe operações relacionadas a Item para camadas superiores
+ * (ex: UI).
+ */
 public class Item {
 
     private int id;

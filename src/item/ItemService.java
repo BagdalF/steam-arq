@@ -3,6 +3,15 @@ package item;
 import java.util.Optional;
 import usuario.UsuarioCadastrado;
 
+/**
+ * Camada de serviço responsável pela lógica de negócio relacionada a Item.
+ * Interage com o ItemRepository para persistência e manipula entidades Item.
+ *
+ * Relação na arquitetura: - Recebe requisições do ItemController. - Utiliza
+ * ItemRepository para persistência. - Interage com Usuario Cadastro por
+ * Associação (uso/dependência): o usuário é recebido como parâmetro em métodos
+ * como comprarItem e apenas usado temporariamente.
+ */
 public class ItemService {
 
     private final ItemRepository repository;

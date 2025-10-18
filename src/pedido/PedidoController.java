@@ -2,6 +2,14 @@ package pedido;
 
 import jogo.Jogo;
 
+/**
+ * Camada Controller responsável por orquestrar requisições relacionadas a
+ * Pedido. Recebe chamadas externas (ex: interface gráfica ou API) e delega para
+ * o PedidoService.
+ *
+ * Relação na arquitetura: - Depende de PedidoService para executar operações de
+ * negócio. - Não acessa diretamente o repositório ou entidades.
+ */
 public class PedidoController {
 
     private final PedidoService service;

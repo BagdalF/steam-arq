@@ -6,6 +6,20 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import jogo.Jogo;
 
+/**
+ * Entidade principal que representa um pedido de compra na plataforma. Cada
+ * Pedido possui um id, data, status, um carrinho (com itens do tipo Jogo) e um
+ * pagamento.
+ *
+ * Relação na arquitetura: - Pedido é criado e manipulado pelo PedidoService. -
+ * PedidoRepository é responsável por persistir instâncias de Pedido. -
+ * PedidoController expõe operações relacionadas a Pedido para camadas
+ * superiores (ex: UI).
+ *
+ * Classes internas: - Carrinho: representa o conjunto de jogos associados ao
+ * pedido. - Pagamento: representa o pagamento do pedido, incluindo
+ * processamento e confirmação.
+ */
 public class Pedido {
 
     private static final AtomicInteger SEQ = new AtomicInteger(1);

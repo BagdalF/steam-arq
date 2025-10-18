@@ -1,5 +1,14 @@
 package suporte;
 
+/**
+ * Camada de serviço responsável pela lógica de negócio relacionada a Suporte.
+ * Interage com o SuporteRepository para persistência e manipula entidades
+ * Suporte.
+ *
+ * Relação na arquitetura: - Recebe requisições do SuporteController. - Utiliza
+ * SuporteRepository para persistência. - Manipula entidades Suporte e executa
+ * operações como abertura de ticket e processamento de reembolso.
+ */
 public class SuporteService {
 
     private final SuporteRepository repository;

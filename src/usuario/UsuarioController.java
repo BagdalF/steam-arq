@@ -1,5 +1,13 @@
 package usuario;
 
+/**
+ * Camada Controller responsável por orquestrar requisições relacionadas a
+ * Usuario. Recebe chamadas externas (ex: interface gráfica ou API) e delega
+ * para o UsuarioService.
+ *
+ * Relação na arquitetura: - Depende de UsuarioService para executar operações
+ * de negócio. - Não acessa diretamente o repositório.
+ */
 public class UsuarioController {
 
     private final UsuarioService service;

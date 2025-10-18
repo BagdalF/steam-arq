@@ -3,6 +3,14 @@ package pedido;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Camada de persistência responsável por armazenar e recuperar instâncias de
+ * Pedido. Utiliza um Map em memória como armazenamento (protótipo).
+ *
+ * Relação na arquitetura: - PedidoService utiliza o PedidoRepository para
+ * persistir e buscar pedidos. - Não contém lógica de negócio, apenas operações
+ * CRUD.
+ */
 public class PedidoRepository {
 
     private final Map<Integer, Pedido> storage = new HashMap<>();
